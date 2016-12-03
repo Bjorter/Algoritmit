@@ -24,27 +24,23 @@ namespace Algoritmit
         public int ic = 0;
         public int n = 0;
 
-        public int Zero = 0;
-        public int One = 0;
-        public int Two = 0;
-        public int Three = 0;
-        public int Four = 0;
-        public int Five = 0;
-        public int Six = 0;
-        public int Seven = 0;
-        public int Eight = 0;
-        public int Nine = 0;
+        public int ACount = 0;
+        public int BCount = 0;
+        public int CCount = 0;
 
         public void RunProgram()
         {
 
             int choice = 0;
             int size = 0;
+            int random = 0;
 
             // Alustetaan taulukot
-            int[] A = new int[10000000];
-            int[] B = new int[10000000];
-            int[] C = new int[10000000];
+            string A = "";
+            string B = "";
+            string C = "";
+
+            char letter;
 
             Stopwatch Ms = new Stopwatch();
 
@@ -72,14 +68,15 @@ namespace Algoritmit
 
                             for (i = 0; i < size; i++)
                             {
-                                A[i] = num.Next(0, 10);
-
-                                B[i] = num.Next(0, 10);
-
-                                C[i] = num.Next(0, 10);
+                                random = num.Next(0, 3);
+                                A = A + GenLetter(random);
+                                random = num.Next(0, 3);
+                                B = B + GenLetter(random);
+                                random = num.Next(0, 3);
+                                C = C + GenLetter(random);
                             }
 
-                            Console.WriteLine("Finished generating {0} random numbers to all 3 strings", size);
+                            Console.WriteLine("Finished generating {0} random letters to all 3 strings", size);
                             Console.ReadLine();
 
                             break;
@@ -97,23 +94,29 @@ namespace Algoritmit
                                 }
                                 else if (n == 0 || n == 2 || n == 4 || n == 6 || n == 8)
                                 {
-                                    if (ia <= i)
+                                    if (ia < i)
                                     {
-                                        ia = Allocate(A, ia);
+                                        letter = GetLetter(A, ia);
+                                        ia++;
+                                        A = Allocate(letter, A);
                                     }
                                 }
                                 else if (n == 1 || n == 5 || n == 9)
                                 {
-                                    if (ib <= i)
+                                    if (ib < i)
                                     {
-                                        ib = Allocate(B, ib);
+                                        letter = GetLetter(B, ib);
+                                        ib++;
+                                        B = Allocate(letter, B);
                                     }
                                 }
                                 else if (n == 3 || n == 7)
                                 {
-                                    if (ic <= i)
+                                    if (ic < i)
                                     {
-                                        ic = Allocate(C, ic);
+                                        letter = GetLetter(C, ic);
+                                        ic++;
+                                        C = Allocate(letter, C);
                                     }
                                 }
 
@@ -135,8 +138,7 @@ namespace Algoritmit
                         {
                             Console.WriteLine("The results are as follows!");
                             Console.WriteLine("Time to completion {0} seconds", Ms.ElapsedMilliseconds);
-                            Console.WriteLine("Zeros: {0} Ones: {1}, Twos: {2} Threes: {3} Fours: {4}", Zero, One, Two, Three, Four);
-                            Console.WriteLine("Fives: {0} Sixes: {1} Sevens: {2} Eights: {3} Nines: {4}", Five, Six, Seven, Eight, Nine);
+                            Console.WriteLine("Letters A: {0}\nLetters B: {1}\nLetters C: {2}", ACount, BCount, CCount);
 
                             Console.ReadLine();
                             break;
@@ -144,23 +146,18 @@ namespace Algoritmit
 
                     case 4:
                         {
-                            Zero = 0;
-                            One = 0;
-                            Two = 0;
-                            Three = 0;
-                            Four = 0;
-                            Five = 0;
-                            Six = 0;
-                            Seven = 0;
-                            Eight = 0;
-                            Nine = 0;
+                            A = "";
+                            B = "";
+                            C = "";
+
+                            ACount = 0;
+                            BCount = 0;
+                            CCount = 0;
 
                             size = 0;
 
                             ia = 0;
-                            B = null;
                             ib = 0;
-                            C = null;
                             ic = 0;
                             n = 0;
 
@@ -184,86 +181,76 @@ namespace Algoritmit
 
         }
 
-        //----------------------------------------------
-        // Katsoo taulukon seuraavan numeron ja lisää sen nimisen int muuttujan arvoa yhdellä
-        // Tämän jälkeen kyseinen numero taulukosta poistetaan
-        public int Allocate(int[] s, int ix)
+        public string GenLetter (int r)
         {
-            int num = s[ix];
-
-            // Jos seuraava numero taulukossa puuttuu, lähdetään aliohjelmasta tekemättä mitään
-            if (ix == i)
-            {
-                return ix;
-            }
-
-            ix++;
-
-            switch (num)
+            string Letter = "";
+            switch (r)
             {
                 case 0:
                     {
-                        Zero++;
-                        return ix;
+                        Letter = "A";
+                        return Letter;
                     }
-
                 case 1:
                     {
-                        One++;
-                        return ix;
+                        Letter = "B";
+                        break;
                     }
-
                 case 2:
                     {
-                        Two++;
-                        return ix;
+                        Letter = "C";
+                        break;
+                    }
+            }
+            return Letter;
+        }
+
+        public char GetLetter(string X, int ix)
+        {
+            char Letter = 'D';
+            if (ix <= i)
+            {
+                Letter = X[0];
+                return Letter;
+            }
+            return Letter;
+        }
+
+        //----------------------------------------------
+        // Katsoo taulukon seuraavan numeron ja lisää sen nimisen int muuttujan arvoa yhdellä
+        // Tämän jälkeen kyseinen numero taulukosta poistetaan
+        public string Allocate(char Letter, string SX)
+        {
+
+            switch (Letter)
+            {
+                case 'A':
+                    {
+                        ACount++;
+                        SX = SX.Remove(0,1);
+                        return SX;
                     }
 
-                case 3:
+                case 'B':
                     {
-                        Three++;
-                        return ix;
+                        BCount++;
+                        SX = SX.Remove(0, 1);
+                        return SX;
                     }
 
-                case 4:
+                case 'C':
                     {
-                        Four++;
-                        return ix;
+                        CCount++;
+                        SX = SX.Remove(0, 1);
+                        return SX;
                     }
-
-                case 5:
+                case 'D':
                     {
-                        Five++;
-                        return ix;
-                    }
-
-                case 6:
-                    {
-                        Six++;
-                        return ix;
-                    }
-
-                case 7:
-                    {
-                        Seven++;
-                        return ix;
-                    }
-
-                case 8:
-                    {
-                        Eight++;
-                        return ix;
-                    }
-
-                case 9:
-                    {
-                        Nine++;
-                        return ix;
+                        return SX;
                     }
             }
 
-            return ix;
-
+            return SX;
         }
 
     }
