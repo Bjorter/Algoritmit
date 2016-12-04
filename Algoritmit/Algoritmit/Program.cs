@@ -137,7 +137,7 @@ namespace Algoritmit
                     case 3:
                         {
                             Console.WriteLine("The results are as follows!");
-                            Console.WriteLine("Time to completion {0} seconds", Ms.ElapsedMilliseconds);
+                            Console.WriteLine("Time to completion {0} milliseconds", Ms.ElapsedMilliseconds);
                             Console.WriteLine("Letters A: {0}\nLetters B: {1}\nLetters C: {2}", ACount, BCount, CCount);
 
                             Console.ReadLine();
